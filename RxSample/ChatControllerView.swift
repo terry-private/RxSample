@@ -65,8 +65,10 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITextViewDeleg
         
         //送信ボタン
         sendButton = UIButton(frame: CGRect(x: self.view.frame.width - 60,y: 5,width: 50,height:40))
-        sendButton.setTitle("send", for: .normal)
-        sendButton.backgroundColor = UIColor(hue: 0, saturation: 0.73, brightness: 0.88, alpha: 1.0)
+        sendButton.setTitle("送信", for: .normal)
+        sendButton.setBackgroundColor(.systemRed, for: .normal)
+        sendButton.setBackgroundColor(.systemPink, for: .selected)
+        
         sendButton.layer.cornerRadius = 10
         inputUIView.addSubview(sendButton)
         
