@@ -48,11 +48,12 @@ class ChatViewModel {
     
     //メッセージデータの追加
     func addMessage(msg:String) {
+        messageModel.add(msg: msg)
     }
 
     //現在表示しているデータ数を取得
     func getDataCount() -> Int {
-        return 0
+        return (messageModel.data?.count)! - 1
     }
 }
 
