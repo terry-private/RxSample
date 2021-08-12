@@ -40,8 +40,6 @@ class ChatViewModel {
                 }
             })
             .disposed(by: disposeBag)
-        
-        
     }
     //DisposeBag
     fileprivate let disposeBag = DisposeBag()

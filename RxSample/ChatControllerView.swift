@@ -13,7 +13,6 @@ import RxKeyboard
 import RxGesture
 
 class ChatViewController: UIViewController, UITableViewDelegate, UITextViewDelegate {
-    
     //UI
     var messageTableView: UITableView!
     var inputText = UITextView()
@@ -76,11 +75,9 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITextViewDeleg
         inputUIView.addSubview(sendButton)
         
         view.addSubview(chatUIView)
-        
     }
     
     func setRxSwift() {
-        
         //******** チャットのTableView
         //**** Delegateを設定
         messageTableView.rx
@@ -114,7 +111,6 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITextViewDeleg
                 }
             })
             .disposed(by: disposeBag)
-        
         
         //**** 上までスクロールしたら過去データをロード
         //      contentOffset を監視する。
@@ -169,7 +165,6 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITextViewDeleg
             })
             .disposed(by: disposeBag)
         
-        
         //**** 送信ボタン
         sendButton.rx.tap
             .subscribe { [weak self] _ in
@@ -190,13 +185,11 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITextViewDeleg
                 }
             }
             .disposed(by: disposeBag)
-        
     }
     
     //テキストが入力された時のイベント
     func textViewDidChange(_ textView: UITextView) {
         var frame = textView.frame
-        
         //textViewのheightを変更
         if (textView.contentSize.height > 80) { //heightの上限を設定
             frame.size.height = 80
@@ -206,9 +199,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITextViewDeleg
         textView.frame = frame
         
         //UIViewのheightを変更
-        let frameView = CGRect(x: 0, y : self.inputUIView.frame.maxY - frame.size.height, width: self.view.frame.width, height: frame.size.height)
-        self.inputUIView.frame = frameView
-        
-        
+        let frameView = CGRect(x: 0, y : inputUIView.frame.maxY - frame.size.height, width: view.frame.width, height: frame.size.height)
+        inputUIView.frame = frameView
     }
 }

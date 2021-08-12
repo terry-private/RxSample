@@ -17,7 +17,6 @@ struct Message {
 }
 
 class MessageModel {
-    
     var dataMessageRx = RxCocoa.BehaviorRelay<[Message]>(value: [])  //TableViewのデータソース。Variableがdeprecateになったので　BehaviorRelayを使用
     var data:[Message]? = []    //dataMessageRxを更新する為のデータを格納するオブジェクト
     var currentPage = 1         //現在のページ数
@@ -35,7 +34,6 @@ class MessageModel {
     //ページ数に応じてデータを取得
     // 取得後、dataMessageRx のValueを変更する(=subscribeしている箇所を実行)
     func messagesGet() {
-        
         //**** 表示するデータを取得してデータソースを更新(すると自動的にobserveしているプログラムが実行される)
         //      今回は配列だが、本来はFirebaseなどのDBからデータを取得する部分。
         //ページ数を考慮してデータを取得
