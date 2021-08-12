@@ -29,7 +29,11 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITextViewDeleg
         self.createUI()
         self.setRxSwift()
     }
-    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        messageTableView.scrollToRow(at: IndexPath(row: (chatViewModel.getDataCount()), section: 0),
+                                           at: UITableView.ScrollPosition.bottom, animated: true)
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -182,6 +186,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITextViewDeleg
                     //送信したメッセージが見えるように下までスクロールする
                     self?.messageTableView.scrollToRow(at: IndexPath(row: (self?.chatViewModel.getDataCount())!, section: 0),
                                                        at: UITableView.ScrollPosition.bottom, animated: true)
+                    self?.setTextViewSize()
                 }
             }
             .disposed(by: disposeBag)
@@ -189,17 +194,16 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITextViewDeleg
     
     //テキストが入力された時のイベント
     func textViewDidChange(_ textView: UITextView) {
-        var frame = textView.frame
-        //textViewのheightを変更
-        if (textView.contentSize.height > 80) { //heightの上限を設定
-            frame.size.height = 80
-        } else {
-            frame.size.height = textView.contentSize.height
-        }
-        textView.frame = frame
+        setTextViewSize()
+    }
+    func setTextViewSize() {
+        let frame = CGRect(x: 5, y: 5 , width: view.frame.width - 70, height: min(200, max(40, inputText.contentSize.height)))
         
-        //UIViewのheightを変更
-        let frameView = CGRect(x: 0, y : inputUIView.frame.maxY - frame.size.height, width: view.frame.width, height: frame.size.height)
-        inputUIView.frame = frameView
+        inputText.frame = frame
+        inputUIView.frame = CGRect(x: 0, y : 0 + chatUIView.frame.height - frame.size.height - 10, width: view.frame.width, height: frame.size.height + 10)
+        
+        messageTableView.frame.size.height = view.frame.size.height - frame.size.height - 10
+        messageTableView.scrollToRow(at: IndexPath(row: (chatViewModel.getDataCount()), section: 0),
+                                           at: UITableView.ScrollPosition.bottom, animated: true)
     }
 }
